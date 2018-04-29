@@ -1,4 +1,6 @@
 {
+  "name": "chebian",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vuepress dev",
     "build": "vuepress build"

@@ -29,7 +29,7 @@ module.exports = {
           }
         ],
         sidebar: {
-          '/guide/': genSidebarConfig('指南')
+          '/guide/': genSidebarConfig('css相关')
         }
       }
     }
@@ -43,14 +43,15 @@ function genSidebarConfig(title) {
       collapsable: false,
       children: [
         '',
-        'getting-started',
-        'basic-config',
-        'assets',
-        'markdown',
-        'using-vue',
-        'custom-themes',
-        'i18n',
-        'deploy'
+        'css-name',
+        'vue'
+        // 'basic-config',
+        // 'assets',
+        // 'markdown',
+        // 'using-vue',
+        // 'custom-themes',
+        // 'i18n',
+        // 'deploy'
       ]
     }
   ]
