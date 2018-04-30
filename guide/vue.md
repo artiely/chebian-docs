@@ -2,7 +2,13 @@
 
 基于 Vue 官方风格指南整理
 
-## 一、强制
+# 一、强制
+
+## 代码必须遵循 eslint
+
+使用 eslint standard 规范
+
+## 组件命名
 
 1.  组件名为多个单词组件名应该始终是多个单词的，根组件 App 除外。
 
@@ -23,6 +29,8 @@ export default {
   // ...
 }
 ```
+
+## data 函数
 
 2.  组件数据组件的 data 必须是一个函数。当在组件中使用 data 属性的时候 (除了 new Vue 外的任何地方)，它的值必须是返回一个对象的函数。
 
@@ -56,8 +64,9 @@ export default {
 }
 ```
 
-3.  Prop 定义
-    Prop 定义应该尽量详细。在你提交的代码中，prop 的定义应该尽量详细，至少需要指定其类型。
+## Prop 定义
+
+3.  Prop 定义应该尽量详细。在你提交的代码中，prop 的定义应该尽量详细，至少需要指定其类型。
 
 正例：
 
@@ -89,6 +98,8 @@ props: {
 props: ['status']
 ```
 
+## v-for 必须有 key
+
 4.  为 v-for 设置键值总是用 key 配合 v-for。在组件上*总是*必须用 key 配合 v-for，以便维护内部组件及其子树的状态。甚至在元素上维护可预测的行为，比如动画中的对象固化 (object constancy)，也是一种好的做法。
 
 正例：
@@ -113,6 +124,8 @@ props: ['status']
   </li>
 </ul>
 ```
+
+## 避免 v-if 和 v-for 用在一起
 
 5.避免 v-if 和 v-for 用在一起永远不要把 v-if 和 v-for 同时用在同一个元素上。一般我们在两种常见的情况下会倾向于这样做：
 
@@ -142,6 +155,8 @@ props: ['status']
   </li>
 </ul>
 ```
+
+## 不一定要使用 scoped 特性
 
 6.  为组件样式设置作用域对于应用来说，顶级 App 组件和布局组件中的样式可以是全局的，但是其它所有组件都应该是有作用域的。这条规则只和单文件组件有关。你不一定要使用 scoped 特性。设置作用域也可以通过 CSS Modules，那是一个基于 class 的类似 BEM 的策略，当然你也可以使用其它的库或约定。
 
@@ -198,7 +213,9 @@ props: ['status']
 </style>
 ```
 
-## 二、强烈推荐（增强可读性）
+# 二、强烈推荐（增强可读性）
+
+## 组件命名可读性
 
 1.  组件文件只要有能够拼接文件的构建系统，就把每个组件单独分成文件。当你需要编辑一个组件或查阅一个组件的用法时，可以更快速的找到它。
 
@@ -363,6 +380,8 @@ components/
 |- UProfOpts.vue
 ```
 
+## 标签属性可维护性书写
+
 9.  多个特性的元素多个特性的元素应该分多行撰写，每个特性一行。
 
 正例：
@@ -386,6 +405,8 @@ alt="Vue Logo"
 <MyComponent foo="a" bar="b" baz="c"/>
 ```
 
+## 复杂运算不因该由模板来完成
+
 10. 模板中简单的表达式组件模板应该只包含简单的表达式，复杂的表达式则应该重构为计算属性或方法。复杂表达式会让你的模板变得不那么声明式。我们应该尽量描述应该出现的是什么，而非如何计算那个值。而且计算属性和方法使得代码可以重用。
 
 正例：
@@ -396,11 +417,11 @@ alt="Vue Logo"
 {{ normalizedFullName }}
 // 复杂表达式已经移入一个计算属性
 computed: {
-normalizedFullName: function () {
-return this.fullName.split(' ').map(function (word) {
-return word[0].toUpperCase() + word.slice(1)
-}).join(' ')
-}
+  normalizedFullName: function () {
+    return this.fullName.split(' ').map(function (word) {
+      return word[0].toUpperCase() + word.slice(1)
+    }).join(' ')
+  }
 }
 ```
 
@@ -419,19 +440,21 @@ return word[0].toUpperCase() + word.slice(1)
 }
 ```
 
+## 计算属性
+
 11. 简单的计算属性正例：
 
 ```js
 computed: {
-basePrice: function () {
-return this.manufactureCost / (1 - this.profitMargin)
-},
-discount: function () {
-return this.basePrice \* (this.discountPercent || 0)
-},
-finalPrice: function () {
-return this.basePrice - this.discount
-}
+  basePrice: function () {
+    return this.manufactureCost / (1 - this.profitMargin)
+  },
+  discount: function () {
+    return this.basePrice \* (this.discountPercent || 0)
+  },
+  finalPrice: function () {
+    return this.basePrice - this.discount
+  }
 }
 ```
 
@@ -439,15 +462,17 @@ return this.basePrice - this.discount
 
 ```js
 computed: {
-price: function () {
-var basePrice = this.manufactureCost / (1 - this.profitMargin)
-return (
-basePrice -
-basePrice \* (this.discountPercent || 0)
-)
-}
+  price: function () {
+    var basePrice = this.manufactureCost / (1 - this.profitMargin)
+    return (
+      basePrice -
+      basePrice \* (this.discountPercent || 0)
+    )
+  }
 }
 ```
+
+## 单双引号使用
 
 12. 带引号的特性值非空 HTML 特性值应该始终带引号 (单引号或双引号，选你 JS 里不用的那个)。在 HTML 中不带空格的特性值是可以没有引号的，但这样做常常导致带空格的特征值被回避，导致其可读性变差。
 
@@ -462,6 +487,8 @@ basePrice \* (this.discountPercent || 0)
 ```html
 <AppSidebar :style={width:sidebarWidth+'px'}>
 ```
+
+## 指令缩写
 
 13. 指令缩写都用指令缩写 (用 : 表示 v-bind: 和用 @ 表示 v-on:)
 
@@ -481,7 +508,9 @@ v-bind:value="newTodoText"
 :placeholder="newTodoInstructions"
 ```
 
-## 三、推荐
+# 三、推荐
+
+## 标签格式一致性
 
 1.  单文件组件的顶级元素的顺序单文件组件应该总是让`<script`>、`<template>` 和 `<style>` 标签的顺序保持一致。且`<style>` 要放在最后，因为另外两个标签至少要有一个。
 
@@ -496,6 +525,8 @@ v-bind:value="newTodoText"
 
 <style>/* ... */</style>
 ```
+
+## 注意事项
 
 四、谨慎使用 (有潜在危险的模式)
 
@@ -605,19 +636,19 @@ Vue.component('TodoItem', {
 ```js
 // store/modules/todos.js
 export default {
-state: {
-list: []
-},
-mutations: {
-REMOVE_TODO (state, todoId) {
-state.list = state.list.filter(todo => todo.id !== todoId)
-}
-},
-actions: {
-removeTodo ({ commit, state }, todo) {
-commit('REMOVE_TODO', todo.id)
-}
-}
+  state: {
+  list: []
+  },
+  mutations: {
+    REMOVE_TODO (state, todoId) {
+      state.list = state.list.filter(todo => todo.id !== todoId)
+      }
+    },
+    actions: {
+      removeTodo ({ commit, state }, todo) {
+        commit('REMOVE_TODO', todo.id)
+    }
+  }
 }
 
 <!-- TodoItem.vue -->
@@ -683,53 +714,103 @@ mounted(){},
 activated(){}
 ```
 
-附录
+## 推荐常用 vs code 插件
 
-1.  推荐使用 vs code 进行前端编码，规定 Tab 大小为 2 个空格
-    vs code 配置
+::: tip
+Auto Close Tag 自动闭合标签  
+Path Intellisense 路劲感知  
+Prettier 代码格式化  
+Vetur vue 插件  
+blubloco-dark 一款主题  
+barcket pair colorizer 括号高亮  
+code outline 方便读源码  
+material icon theme 图标主题  
+sublime text keymap sublime 快捷键  
+todo highlight 待办高亮  
+:::
+
+## vscode 配置
 
 ```json
 {
-  "editor.tabSize": 2,
   "workbench.startupEditor": "newUntitledFile",
-  "workbench.iconTheme": "vscode-icons",
-  // 以下为 stylus 配置
-  "stylusSupremacy.insertColons": false, // 是否插入冒号
-  "stylusSupremacy.insertSemicolons": false, // 是否插入分好
-  "stylusSupremacy.insertBraces": false, // 是否插入大括号
-  "stylusSupremacy.insertNewLineAroundImports": false, // import 之后是否换行
-  "stylusSupremacy.insertNewLineAroundBlocks": false, // 两个选择器中是否换行
-  "vetur.format.defaultFormatter.html": "js-beautify-html",
-  "eslint.autoFixOnSave": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "terminal.integrated.shell.windows":
+    "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  // 以下解决格式化js自动添加分号
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
+  // 以下解决stylus格式化问题
+  "stylusSupremacy.insertColons": true,
+  // 是否插入冒号
+  "stylusSupremacy.insertSemicolons": true,
+  // 是否插入分好
+  "stylusSupremacy.insertBraces": true,
+  // 是否插入大括号
+  "stylusSupremacy.insertNewLineAroundImports": false, // import之后是否换行
+  "stylusSupremacy.insertNewLineAroundBlocks": false,
+  // 两个选择器中是否换行
+  // 解决js单引号自动转换成双引号：
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  // 窗口失去焦点自动保存
+  "files.autoSave": "onFocusChange",
+  // 编辑粘贴自动格式化
+  //"editor.formatOnPaste": true,
+
+  // 通过使用鼠标滚轮同时按住 Ctrl 可缩放编辑器的字体
+  "editor.mouseWheelZoom": false,
+  // 行太长自动换行
+  "editor.wordWrap": "on",
+
+  // eslint设置
   "eslint.validate": [
     "javascript",
-    {
-      "language": "html",
-      "autoFix": true
-    },
+    "javascriptreact",
+    "html",
+    "vue",
     {
       "language": "vue",
       "autoFix": true
-    },
-    "javascriptreact",
-    "html",
-    "vue"
+    }
   ],
-  "eslint.options": { "plugins": ["html"] },
-  "prettier.singleQuote": true,
-  "prettier.semi": false,
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
-  "vetur.format.js.InsertSpaceBeforeFunctionParenthesis": false,
-  "vetur.format.defaultFormatter.js": "prettier"
-  // "prettier.eslintIntegration": true
+
+  // tab锁紧
+  "editor.tabSize": 2,
+  // 保存自动化
+  "editor.formatOnSave": true,
+
+  "editor.formatOnSave": true,
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "todohighlight.keywords": [
+    "DEBUG:",
+    "REVIEW:",
+    {
+      "text": "NOTE:",
+      "color": "#ff0000",
+      "backgroundColor": "yellow",
+      "overviewRulerColor": "grey"
+    },
+    {
+      "text": "BUG:",
+      "color": "#fff",
+      "backgroundColor": "red",
+      "isWholeLine": false
+    },
+    {
+      "text": "HACK:",
+      "color": "#000",
+      "isWholeLine": false
+    },
+    {
+      "text": "TIP:",
+      "color": "#fff",
+      "backgroundColor": "#1690ff",
+      "isWholeLine": false
+    }
+  ],
+  "workbench.colorTheme": "Bluloco Dark",
+  "sublimeTextKeymap.promptV3Features": true
 }
 ```
-
-::: tip
-vs code 插件  
-Auto Close Tag  
-Path Intellisense  
-Prettier  
-Vetur  
-vscode-icons  
-:::

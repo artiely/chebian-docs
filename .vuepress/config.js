@@ -29,7 +29,7 @@ module.exports = {
           }
         ],
         sidebar: {
-          '/guide/': genSidebarConfig('css相关')
+          '/guide/': genSidebarConfig('规范')
         }
       }
     }
@@ -42,7 +42,6 @@ function genSidebarConfig(title) {
       title,
       collapsable: false,
       children: [
-        '',
         'css-name',
         'vue'
         // 'basic-config',
