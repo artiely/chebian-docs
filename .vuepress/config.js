@@ -16,11 +16,11 @@ module.exports = {
         editLinkText: '在 GitHub 上编辑此页',
         nav: [
           {
-            text: '指南',
+            text: '规范',
             link: '/guide/'
           },
           {
-            text: '配置参考',
+            text: '技术分享',
             link: '/config/'
           },
           {
@@ -39,9 +39,9 @@ module.exports = {
 function genSidebarConfig() {
   return [
     {
-      title: 'css规范',
+      title: '',
       collapsable: false,
-      children: ['css', 'js', 'html', 'vue', 'file']
+      children: ['', 'html', 'css', 'js', 'vue', 'file']
     }
   ]
 }
