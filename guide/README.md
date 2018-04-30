@@ -1,16 +1,6 @@
-# hahahaha
+# 为了爱与和平
 
-::: tip
-This is a tip
-:::
-
-::: warning
-This is a warning
-:::
-
-::: danger
-This is a dangerous warning
-:::
+一个好的程序员肯定是要能书写可维护的代码，而不是一次性的代码，怎么能让团队当中其他人甚至一段时间时候你再看你某个时候写的代码也能看懂呢，这就需要规范你的代码了。我是有一点强迫症或者叫代码洁癖的人。我们只是觉得名字应该语义化，但是让我们自己想一个名字又想不出来，所以就有了规范。
 
 ```js{4}
 export default {
@@ -21,5 +11,3 @@ export default {
   }
 }
 ```
-
-# 标题 2

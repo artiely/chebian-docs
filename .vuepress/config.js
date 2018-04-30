@@ -29,29 +29,19 @@ module.exports = {
           }
         ],
         sidebar: {
-          '/guide/': genSidebarConfig('规范')
+          '/guide/': genSidebarConfig()
         }
       }
     }
   }
 }
 
-function genSidebarConfig(title) {
+function genSidebarConfig() {
   return [
     {
-      title,
+      title: 'css规范',
       collapsable: false,
-      children: [
-        'css-name',
-        'vue'
-        // 'basic-config',
-        // 'assets',
-        // 'markdown',
-        // 'using-vue',
-        // 'custom-themes',
-        // 'i18n',
-        // 'deploy'
-      ]
+      children: ['css', 'js', 'html', 'vue', 'file']
     }
   ]
 }

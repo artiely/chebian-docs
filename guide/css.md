@@ -1,10 +1,303 @@
-# css 命名规范
+# css 规范
 
-* 所有的命名最好都小写，除非是 JS 操作的钩子样式名
-* 尽量使用英文命名原则
-* 尽量不缩写，除非一看就明白的单词
-* 尽量使用动态语言，方便快速开发和团队协作，团队统一使用 less
+## 样式名小写
+
+所有的命名最好都小写，除非是 JS 操作的钩子样式名 JS 操作的样式名不应该承载样式
+
+不推荐 ×
+
+```css
+.cardBody {
+}
+```
+
+推荐 √
+
+```css
+.card-body {
+}
+```
+
+不推荐 ×
+
+```html
+<!-- html -->
+<div class="menu-item"></div>
+<!-- style -->
+.menu-item {
+  font-size:12px;
+  color:#333;
+}
+<!-- script -->
+$('.menu-item').on()
+```
+
+推荐 √
+
+```html
+<!-- html -->
+<div class="menu-item J-menu-itm"></div>
+<!-- style -->
+.menu-item {
+  font-size:12px;
+  color:#333;
+}
+<!-- script -->
+$('.J-menu-itm').on()
+```
+
+## 尽量使用英文命名原则
+
+不推荐 ×
+
+```css
+.xiaoxi {
+}
+```
+
+推荐 √
+
+```css
+.message {
+}
+```
+
+## 见名知意
+
+尽量不缩写，除非一看就明白的单词
+
+不推荐 ×
+
+```css
+.dis {
+}
+```
+
+推荐 √
+
+```css
+.disabled {
+}
+.user-info {
+}
+.user-desc {
+}
+```
+
+## 使用动态语言 less
+
+* 开发阶段尽量使用动态语言，方便快速开发和维护及团队协作，团队统一使用 less
+
+不推荐 ×
+
+```css
+.card {
+}
+.card .card-header {
+}
+.card .card-body {
+}
+```
+
+推荐 √
+
+```less
+.card {
+  &-header {
+  }
+  &-body {
+  }
+}
+```
+
+## 独立组件样式
+
 * 组件的样式以 less 单文件维护（已组件名命名样式文件）
+
+不推荐 ×
+
+```css
+.card {
+}
+.card .card-header {
+}
+.card .card-body {
+}
+.nav {
+}
+.nav .nav-item {
+}
+```
+
+推荐 √
+
+```less
+// card.less
+.card {
+  &-header {
+  }
+  &-body {
+  }
+}
+// nav.less
+.nav {
+  &-item {
+  }
+  //...
+}
+```
+
+## 合理的使用 ID
+
+一般情况下 ID 不应该被用于样式，并且 ID 的权重很高，所以不使用 ID 解决样式的问题，而是使用 class
+
+不推荐 ×
+
+```css
+#content .title {
+  font-size: 2em;
+}
+```
+
+推荐 √
+
+```css
+.content .title {
+  font-size: 2em;
+}
+```
+
+## css 选择器中避免使用标签名
+
+从结构、表现、行为分离的原则来看，应该尽量避免 css 中出现 HTML 标签，并且在 css 选择器中出现标签名会存在潜在的问题。并且查找一个类比查找一个标签更快
+
+不推荐 ×
+
+```css
+#content span {
+  font-size: 2em;
+}
+```
+
+推荐 √
+
+```css
+.content .title {
+  font-size: 2em;
+}
+```
+
+## 使用子选择器
+
+不推荐 ×
+
+```css
+.content .title {
+  font-size: 2rem;
+}
+```
+
+推荐 √
+
+```css
+.content > .title {
+  font-size: 2rem;
+}
+```
+
+## 尽量使用缩写属性
+
+不推荐 ×
+
+```css
+border-top-style: none;
+font-family: palatino, georgia, serif;
+font-size: 100%;
+line-height: 1.6;
+padding-bottom: 2em;
+padding-left: 1em;
+padding-right: 1em;
+padding-top: 0;
+```
+
+推荐 √
+
+```css
+border-top: 0;
+font: 100%/1.6 palatino, georgia, serif;
+padding: 0 1em 2em;
+```
+
+## 0 后面不带单位
+
+不推荐 ×
+
+```css
+padding-bottom: 0px;
+margin: 0em;
+```
+
+推荐 √
+
+```css
+padding-bottom: 0;
+margin: 0;
+```
+
+## 属性格式
+
+为了保证一致性和可扩展性，每个声明应该用分号结束，每个声明换行。属性名的冒号后使用一个空格。出于一致性的原因，属性和值（但属性和冒号之间没有空格）的之间始终使用一个空格。每个选择器和属性声明总是使用新的一行。属性选择器或属性值用双引号`""`，而不是单引号`''`括起来。
+URI 值（url()）不要使用引号。
+
+作为最佳实践，我们应该遵循以下顺序（应该按照下表的顺序）：结构性属性：
+
+display
+position, left, top, right etc.
+overflow, float, clear etc.
+margin, padding
+
+表现性属性：
+
+background, border etc.
+font, text
+
+不推荐 ×
+
+```css
+.box {
+  font-family: 'Arial', sans-serif;
+  border: 3px solid #ddd;
+  left: 30%;
+  position: absolute;
+  text-transform: uppercase;
+  background-color: #eee;
+  right: 30%;
+  isplay: block;
+  font-size: 1.5rem;
+  overflow: hidden;
+  padding: 1em;
+  margin: 1em;
+}
+```
+
+推荐 √
+
+```css
+.box {
+  display: block;
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  overflow: hidden;
+  margin: 1em;
+  padding: 1em;
+  background-color: #eee;
+  border: 3px solid #ddd;
+  font-family: 'Arial', sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+```
 
 ## 部分公用样式名示例
 
@@ -87,15 +380,17 @@ BEM 规范的要点就是 模块名 + 元素名 + 修饰器名。
 车边组件样式名示例
 
 ```less
-.c_card--wrapper {
-  //...
-  .c_card--header {
+.c_card {
+  &--wrapper {
     //...
   }
-  .c_card--body {
+  &--header {
     //...
   }
-  .c_card--footer {
+  &--body {
+    //...
+  }
+  &--footer {
     //...
   }
 }
