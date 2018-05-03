@@ -1,6 +1,6 @@
 module.exports = {
-  title: '开发文档',
-  description: '前端开始开发文档',
+  title: '为了爱与和平',
+  description: 'for love and peace',
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
@@ -41,7 +41,7 @@ function genSidebarConfig() {
     {
       title: '',
       collapsable: false,
-      children: ['', 'html', 'css', 'js', 'vue', 'file']
+      children: ['', 'html', 'css', 'js', 'vue', 'file', 'question']
     }
   ]
 }
