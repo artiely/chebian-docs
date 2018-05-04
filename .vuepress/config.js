@@ -24,8 +24,8 @@ module.exports = {
             link: '/config/'
           },
           {
-            text: '默认主题配置',
-            link: '/default-theme-config/'
+            text: 'github',
+            link: 'https://github.com/artiely'
           }
         ],
         sidebar: {
