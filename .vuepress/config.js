@@ -9,7 +9,7 @@ module.exports = {
       { text: 'External', link: 'https://google.com' }
     ],
     // 假定 GitHub。也可以是一个完整的 GitLab 网址
-    repo: 'artiely/chebian-docs',
+    repo: 'git@github.com:artiely/chebian-docs.git',
     repoLabel: '查看源码',
     // 如果你的文档不在仓库的根部
     // docsDir: 'docs',
