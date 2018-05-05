@@ -37,7 +37,7 @@ module.exports = {
           },
           {
             text: 'github',
-            link: 'https://github.com/artiely'
+            link: 'https://github.com/artiely/chebian-docs'
           }
         ],
         sidebar: {
