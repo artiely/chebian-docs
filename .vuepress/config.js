@@ -30,8 +30,12 @@ module.exports = {
             link: '/guide/'
           },
           {
+            text: '组件',
+            link: '/ui/'
+          },
+          {
             text: '技术分享',
-            link: '/config/'
+            link: '/share/'
           }
         ],
         sidebar: {
