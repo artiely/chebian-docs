@@ -2,6 +2,7 @@ module.exports = {
   title: '为了爱与和平',
   description: 'for love and peace',
   port: '8085',
+
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
@@ -9,7 +10,7 @@ module.exports = {
       { text: 'External', link: 'https://google.com' }
     ],
     // 假定 GitHub。也可以是一个完整的 GitLab 网址
-    repo: 'git@github.com:artiely/chebian-docs.git',
+    repo: 'artiely/chebian-docs',
     repoLabel: '查看源码',
     // 如果你的文档不在仓库的根部
     // docsDir: 'docs',
@@ -18,9 +19,6 @@ module.exports = {
     // 默认为 true，设置为 false 来禁用
     editLinks: true,
     // custom text for edit link. Defaults to "Edit this page"
-    editLinkText: 'github上编辑此页'
-  },
-  themeConfig: {
     locales: {
       '/': {
         label: '简体中文',
@@ -34,10 +32,6 @@ module.exports = {
           {
             text: '技术分享',
             link: '/config/'
-          },
-          {
-            text: 'github',
-            link: 'https://github.com/artiely/chebian-docs'
           }
         ],
         sidebar: {
@@ -53,7 +47,7 @@ function genSidebarConfig() {
     {
       title: '',
       collapsable: false,
-      children: ['', 'html', 'css', 'js', 'vue', 'file', 'question']
+      children: ['', 'desgin', 'html', 'css', 'js', 'vue', 'file', 'question']
     }
   ]
 }

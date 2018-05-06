@@ -1,6 +1,8 @@
 # css 规范
 
-## 样式名小写
+## 命名规范
+
+### 样式名小写
 
 所有的命名最好都小写，除非是 JS 操作的钩子样式名 JS 操作的样式名不应该承载样式
 
@@ -46,7 +48,7 @@ $('.menu-item').on()
 $('.J-menu-itm').on()
 ```
 
-## 尽量使用英文命名原则
+### 尽量使用英文命名原则
 
 不推荐 ×
 
@@ -62,7 +64,7 @@ $('.J-menu-itm').on()
 }
 ```
 
-## 见名知意
+### 见名知意
 
 尽量不缩写，除非一看就明白的单词
 
@@ -84,7 +86,87 @@ $('.J-menu-itm').on()
 }
 ```
 
+### 部分公用样式名示例
+
+| CSS 样式命名          | 说明网页公共命名         |
+| --------------------- | ------------------------ |
+| .row                  | 行                       |
+| .col                  | 列                       |
+| .wrapper              | 页面外围控制整体布局宽度 |
+| .container 或.content | 容器,用于最外层          |
+| .layout               | 布局                     |
+| .head, .header        | 头部分                   |
+| .foot, .footer        | 脚部分                   |
+| .nav                  | 主导航                   |
+| .subnav               | 二级导航                 |
+| .menu                 | 菜单                     |
+| .submenu              | 子菜单                   |
+| .side-bar             | 侧栏                     |
+| .main                 | 页面主体                 |
+| .tag                  | 标签                     |
+| .msg .message         | 提示信息                 |
+| .tips                 | 小提示                   |
+| .link                 | 链接                     |
+| .title                | 标题                     |
+| .summary              | 摘要                     |
+| .login                | 登录                     |
+| .search-iInput        | 搜索输入框               |
+| .hot                  | 热门热点                 |
+| .search               | 搜索                     |
+| .brand                | 商标                     |
+| .logo                 | 网站 LOGO 标志           |
+| .info                 | 信息                     |
+| .service              | 服务                     |
+| .regsiter             | 注册                     |
+| .arrow                | 箭头                     |
+| .list                 | 列表                     |
+| .tool, .tool-bar      | 工具条                   |
+| .drop                 | 下拉                     |
+| .dorpmenu             | 下拉菜单                 |
+| .status               | 状态                     |
+| .scroll               | 滚动                     |
+| .tab                  | 标签页                   |
+| .left .right .center  | 居左、中、右             |
+| .banner               | 广告条(顶部广告条)       |
+
+::: tip
+广告栏不是很建议用.banner 或.ad 等敏感词，因为部分去广告插件会检测对应敏感移除或隐藏 DOM
+:::
+
+### 样式文件命名示例
+
+| CSS 文件命名       | 说明           |
+| ------------------ | -------------- |
+| main.css,index.css | 主要的         |
+| base.css           | 基本共用       |
+| reset.css          | 重置样式       |
+| cover.css          | 覆盖 ui 库样式 |
+| tool.css           | 常用工具样式   |
+| layout.css         | 布局，版面     |
+| themes.css         | 主题           |
+| font.css           | 文字、字体     |
+| forms.css          | 表单           |
+| mend.css           | 补丁           |
+| print.css          | 打印           |
+| var.less           | 变量           |
+| mixin.less         | 混合           |
+
+### 组件样式命名
+
+为了业务样式不影响组件样式 所有的组件样式吸取 BEM 命名规范思想
+BEM 规范的要点就是 模块名 + 元素名 + 修饰器名。
+
+```html
+<div class="page-btn">
+   <button type="button" class="page-btn__prev">上一页</button>
+   <!-- ... -->
+   <button type="button" class="page-btn__next">下一页</button>
+</div>
+```
+
 ## 使用动态语言 less
+
+[去了解 less](http://www.bootcss.com/p/lesscss/)
 
 * 开发阶段尽量使用动态语言，方便快速开发和维护及团队协作，团队统一使用 less
 
@@ -110,13 +192,16 @@ $('.J-menu-itm').on()
 }
 ```
 
-## 独立组件样式
+## 分离解耦
+
+### 独立组件样式
 
 * 组件的样式以 less 单文件维护（已组件名命名样式文件）
 
 不推荐 ×
 
 ```css
+/* main.css */
 .card {
 }
 .card .card-header {
@@ -145,9 +230,14 @@ $('.J-menu-itm').on()
   }
   //...
 }
+// mian.less
+@import './card.less';
+@import './nav.less';
 ```
 
-## 合理的使用 ID
+## 选择器
+
+### 合理的使用 ID
 
 一般情况下 ID 不应该被用于样式，并且 ID 的权重很高，所以不使用 ID 解决样式的问题，而是使用 class
 
@@ -167,7 +257,7 @@ $('.J-menu-itm').on()
 }
 ```
 
-## css 选择器中避免使用标签名
+### css 选择器中避免使用标签名
 
 从结构、表现、行为分离的原则来看，应该尽量避免 css 中出现 HTML 标签，并且在 css 选择器中出现标签名会存在潜在的问题。并且查找一个类比查找一个标签更快
 
@@ -187,7 +277,7 @@ $('.J-menu-itm').on()
 }
 ```
 
-## 使用子选择器
+### 使用子选择器
 
 不推荐 ×
 
@@ -205,7 +295,9 @@ $('.J-menu-itm').on()
 }
 ```
 
-## 尽量使用缩写属性
+## 可读性
+
+### 尽量使用缩写属性
 
 不推荐 ×
 
@@ -228,7 +320,7 @@ font: 100%/1.6 palatino, georgia, serif;
 padding: 0 1em 2em;
 ```
 
-## 0 后面不带单位
+### 0 后面不带单位
 
 不推荐 ×
 
@@ -244,7 +336,7 @@ padding-bottom: 0;
 margin: 0;
 ```
 
-## 属性格式
+### 属性格式
 
 为了保证一致性和可扩展性，每个声明应该用分号结束，每个声明换行。属性名的冒号后使用一个空格。出于一致性的原因，属性和值（但属性和冒号之间没有空格）的之间始终使用一个空格。每个选择器和属性声明总是使用新的一行。属性选择器或属性值用双引号`""`，而不是单引号`''`括起来。
 URI 值（url()）不要使用引号。
@@ -297,106 +389,20 @@ font, text
   font-size: 1.5rem;
   text-transform: uppercase;
 }
-```
-
-## 部分公用样式名示例
-
-| CSS 样式命名          | 说明网页公共命名         |
-| --------------------- | ------------------------ |
-| .row                  | 行                       |
-| .col                  | 列                       |
-| .wrapper              | 页面外围控制整体布局宽度 |
-| .container 或.content | 容器,用于最外层          |
-| .layout               | 布局                     |
-| .head, .header        | 头部分                   |
-| .foot, .footer        | 脚部分                   |
-| .nav                  | 主导航                   |
-| .subnav               | 二级导航                 |
-| .menu                 | 菜单                     |
-| .submenu              | 子菜单                   |
-| .side-bar             | 侧栏                     |
-| .main                 | 页面主体                 |
-| .tag                  | 标签                     |
-| .msg .message         | 提示信息                 |
-| .tips                 | 小提示                   |
-| .link                 | 链接                     |
-| .title                | 标题                     |
-| .summary              | 摘要                     |
-| .login                | 登录                     |
-| .search-iInput        | 搜索输入框               |
-| .hot                  | 热门热点                 |
-| .search               | 搜索                     |
-| .brand                | 商标                     |
-| .logo                 | 网站 LOGO 标志           |
-| .info                 | 信息                     |
-| .service              | 服务                     |
-| .regsiter             | 注册                     |
-| .arrow                | 箭头                     |
-| .list                 | 列表                     |
-| .tool, .tool-bar      | 工具条                   |
-| .drop                 | 下拉                     |
-| .dorpmenu             | 下拉菜单                 |
-| .status               | 状态                     |
-| .scroll               | 滚动                     |
-| .tab                  | 标签页                   |
-| .left .right .center  | 居左、中、右             |
-| .banner               | 广告条(顶部广告条)       |
-
-::: tip
-广告栏不是很建议用.banner 或.ad 等敏感词，因为部分去广告插件会检测对应敏感移除或隐藏 DOM
-:::
-
-## 样式文件命名示例
-
-| CSS 文件命名       | 说明           |
-| ------------------ | -------------- |
-| main.css,index.css | 主要的         |
-| base.css           | 基本共用       |
-| reset.css          | 重置样式       |
-| cover.css          | 覆盖 ui 库样式 |
-| tool.css           | 常用工具样式   |
-| layout.css         | 布局，版面     |
-| themes.css         | 主题           |
-| font.css           | 文字、字体     |
-| forms.css          | 表单           |
-| mend.css           | 补丁           |
-| print.css          | 打印           |
-| var.less           | 变量           |
-| mixin.less         | 混合           |
-
-## 组件样式命名
-
-为了业务样式不影响组件样式 所有的组件样式吸取 BEM 命名规范思想
-BEM 规范的要点就是 模块名 + 元素名 + 修饰器名。
-
-```html
-<div class="page-btn">
-   <button type="button" class="page-btn__prev">上一页</button>
-   <!-- ... -->
-   <button type="button" class="page-btn__next">下一页</button>
-</div>
-```
-
-车边组件样式名示例
-
-```less
-.c_card {
-  &--wrapper {
-    //...
-  }
-  &--header {
-    //...
-  }
-  &--body {
-    //...
-  }
-  &--footer {
-    //...
-  }
+.xx{
+  1.位置属性(position, top, right, z-index, display, float等)
+　2.大小(width, height, padding, margin)
+　3.文字系列(font, line-height, letter-spacing, color- text-align等)
+　4.背景(background, border等)
+　5.其他(animation, transition等)
 }
 ```
 
-## BEM 解决的问题
+## BEM 规范
+
+[去了解 BEM](https://en.bem.info/methodology/quick-start/)
+
+### BEM 解决的问题
 
 css 的样式应用是全局性的，没有作用域可言。考虑以下场景
 
@@ -455,7 +461,7 @@ BEM 的命名规矩很容易记：block-name\_\_element-name--modifier-name，�
 
 所以即使需求变动了，分页组件该有按钮还是要有按钮的，DOM 构造发生变动，至多也就不同元素的增删减，模块内名称也随之增删减，而不会出现修改名字的情况，也就不会因为名字变动，牵涉到 JS 文件的修改，或样式文件的修改。
 
-## BEM 命名好长
+### BEM 命名好长
 
 BEM 的命名中包含了模块名，长长的命名会让 HTML 标签会显得臃肿。
 
@@ -483,13 +489,13 @@ BEM 的命名中包含了模块名，长长的命名会让 HTML 标签会显得�
 }
 ```
 
-其实这些对缩短命名没有多大的帮助，但我们也无需担心文件体积的问题，由于服务端有 gzip 压缩，BEM 命名相同的部分多，压缩下来的体积不会太大。另外现在都用 IDE 来编写代码了，有自动提示功能，也无须担心重复的输入过长的名字。
+其实这些对缩短命名没有多大的帮助，但我们也无需担心文件体积的问题，由于服务端有 gzip 压缩，BEM 命名相同的部分多，压缩下来的体积不会太大。另外现在都用 IDE 来编写代码了，有自动提示功能，而且我们还有 less 处理器，也无须担心重复的输入过长的名字。
 
 因为命名长，我们是不是可以用子代选择器来代替 BEM 命名？这样至少在 HTML 编写时，让 HTML 标签看起来美观一点。
 
 下面说说子代选择器带来的问题。
 
-## 子选择器
+### 子选择器
 
 子代选择器的方式是，通过组件的根节点的名称来选取子代元素。按照这个思路，分页按钮样式可以这么写：
 
@@ -542,7 +548,7 @@ BEM 禁止使用子代选择器，以上是原因之一。子代选择器不好�
 
 如果我们用的是 BEM，要覆盖样式很简单：找到要覆盖样式的元素，得知它的类名，在媒体查询中，用它的类名作为选择器，写下覆盖样式，样式就覆盖成功了，不需要担心前面样式的权重过大。
 
-## BEM 修饰器
+### BEM 修饰器
 
 根据不同的场景，组件可能会表现出不同的样式。比如分页组件在 pc 端具有具体的页码以及上下页按钮，但在移动端，因空间有限，可能只保留上下页按钮。我们可以用修饰器来区分这两种情况。默认情况下，分页按钮的类名为 page-btn，但在移动端，我们需要加多个类名 page-btn--min
 
@@ -587,7 +593,7 @@ BEM 修饰器代表着元素的状态，但有时候元素的状态需要 js 来
 }
 ```
 
-## 原子类和 BEM
+### 原子类和 BEM
 
 BEM 可以不需要用到原子类，但是如果已经引入了类似 Bootstrap 的框架，也没必要强制避免使用原子类，比如“pull-right”、"ellipsis"、“clearfix”等等类，这些类非常实用，和 BEM 是可以互补的。
 
