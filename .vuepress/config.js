@@ -34,12 +34,30 @@ module.exports = {
             link: '/ui/'
           },
           {
+            text: 'wap文档',
+            link: '/wap/'
+          },
+          {
             text: '技术分享',
             link: '/share/'
           }
         ],
         sidebar: {
-          '/guide/': genSidebarConfig()
+          '/guide/': genSidebarConfig(),
+          '/ui/': [
+            {
+              title: '',
+              collapsable: false,
+              children: ['', 'button']
+            }
+          ],
+          '/wap/': [
+            {
+              title: '',
+              collapsable: false,
+              children: ['', 'vuex']
+            }
+          ]
         }
       }
     }
