@@ -1,5 +1,5 @@
 # JS 规范
-
+https://standardjs.com/rules-zhcn.html
 ## 命名规范
 
 ### 驼峰式命名法介绍
