@@ -21,9 +21,45 @@
 
 | 参数        | 介绍                                | 类型    | 可选值                     | 默认值        |
 | ----------- | ----------------------------------- | ------- | -------------------------- | ------------- |
-| placeholder | 选择的提示文本内容                  | String  | -                          | 选择客户/车辆 |
+| placeholder | 选择的提示文本内容                  | String  | -                          | 选择车辆/客户 |
 | noCus       | 表示当前是否有客户信息              | Boolean | -                          | false         |
 | data        | 自定义当前客户的信息                | Object  | -                          | -             |
 | required    | 当前 placeholder 是否显示必填\*符号 | Boolean | -                          | false         |
 | search      | 当前切换去的页面                    | String  | searchCar/searchCus/search | searchCar     |
 | nolink      | 是否展示切换的按钮                  | Boolean | -                          | false         |
+
+## 订单信息 state
+```js
+ orderInfo: {
+    // 接车单信息
+    'receptionOrder.senderName': '',
+    'receptionOrder.senderMobile': '',
+    'receptionOrder.motorTotalMile': '',
+    'receptionOrder.question': '',
+    'receptionOrder.suggest': '',
+    'receptionOrder.expectTime': '',
+    'receptionOrder.remarks': '',
+    'receptionOrder.id': '',
+    // 订单基本信息
+    orderNoHand: '',
+    startTime: moment().format('YYYY-MM-DD HH:mm:ss'),
+    sellEmployee: '',
+    remarks: '',
+    // 是否是划卡单
+    'memberCard.id': '',
+    memberCardPwd: '', // TIP: 划卡多一个密码字段
+    // 订单的id
+    id: ''
+  },
+```
+
+## 退出登录action
+
+
+当前登录者退出登录的方法 `logout` 返回一个Promise
+
+示例
+```js
+this.$store.dispatch('logout').then()
+```
+功能说明：退出登录去清楚_vuex的全部状态和_token_(当前登陆者的id)并刷新页面
