@@ -1,6 +1,6 @@
 module.exports = {
   title: '为了爱与和平',
-  description: 'for love and peace',
+  description: '人生除了眼前的苟且，还有未知的bug和看不懂的code',
   port: '8085',
 
   themeConfig: {
@@ -55,7 +55,7 @@ module.exports = {
             {
               title: '',
               collapsable: false,
-              children: ['', 'vuex']
+              children: ['', 'vuex', 'mixins']
             }
           ]
         }
