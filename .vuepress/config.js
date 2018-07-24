@@ -4,11 +4,11 @@ module.exports = {
   port: '8085',
 
   themeConfig: {
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Guide', link: '/guide/' },
-      { text: 'External', link: 'https://google.com' }
-    ],
+    // nav: [
+    //   { text: 'Home', link: '/' },
+    //   { text: 'Guide', link: '/guide/' },
+    //   { text: 'External', link: 'https://google.com' }
+    // ],
     // 假定 GitHub。也可以是一个完整的 GitLab 网址
     repo: 'artiely/chebian-docs',
     repoLabel: '查看源码',
@@ -19,57 +19,42 @@ module.exports = {
     // 默认为 true，设置为 false 来禁用
     editLinks: true,
     // custom text for edit link. Defaults to "Edit this page"
-    locales: {
-      '/': {
-        label: '简体中文',
-        selectText: '选择语言',
-        editLinkText: '在 GitHub 上编辑此页',
-        nav: [
-          {
-            text: '规范',
-            link: '/guide/'
-          },
-          {
-            text: '组件',
-            link: '/ui/'
-          },
-          {
-            text: 'wap文档',
-            link: '/wap/'
-          },
-          {
-            text: '技术分享',
-            link: '/share/'
-          }
-        ],
-        sidebar: {
-          '/guide/': genSidebarConfig(),
-          '/ui/': [
-            {
-              title: '',
-              collapsable: false,
-              children: ['', 'button']
-            }
-          ],
-          '/wap/': [
-            {
-              title: '',
-              collapsable: false,
-              children: ['', 'vuex', 'mixins']
-            }
-          ]
-        }
+    label: '简体中文',
+    selectText: '选择语言',
+    editLinkText: '在 GitHub 上编辑此页',
+    nav: [{
+        text: '规范',
+        link: '/guide/'
+      },
+      {
+        text: '文档',
+        link: '/chebian/'
+      },
+      {
+        text: '组件',
+        link: '/ui/'
+      },
+      {
+        text: '技术分享',
+        link: '/share/'
       }
+    ],
+    sidebar: {
+      '/guide/': [{
+        title: '',
+        collapsable: false,
+        children: ['', 'desgin', 'html', 'css', 'js', 'vue', 'file', 'question']
+      }],
+      '/chebian/': [{
+        title: '',
+        collapsable: false,
+        children: ['cb','mixins','vuexs']
+      }],
+      '/ui/': [{
+        title: '',
+        collapsable: false,
+        children: ['', 'button']
+      }]
     }
   }
-}
-
-function genSidebarConfig() {
-  return [
-    {
-      title: '',
-      collapsable: false,
-      children: ['', 'desgin', 'html', 'css', 'js', 'vue', 'file', 'question']
-    }
-  ]
 }
