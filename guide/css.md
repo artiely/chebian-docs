@@ -1,91 +1,273 @@
 # css 规范
 
-https://zoomzhao.github.io/code-guide/
-
-## 命名规范
-
-### 样式名小写
-
-所有的命名最好都小写，除非是 JS 操作的钩子样式名 JS 操作的样式名不应该承载样式
-
-不推荐 ×
-
+## 语法
+- 使用两个空格的 soft tabs — 这是保证代码在各种环境下显示一致的唯一方式。
+- 使用组合选择器时，保持每个独立的选择器占用一行。
+- 为了代码的易读性，在每个声明的左括号前增加一个空格。
+- 声明块的右括号应该另起一行。
+- 每条声明 : 后应该插入一个空格。
+- 每条声明应该只占用一行来保证错误报告更加准确。
+- 所有声明应该以分号结尾。虽然最后一条声明后的分号是可选的，但是如果没有他，你的代码会更容易出错。
+- 逗号分隔的取值，都应该在逗号之后增加一个空格。
+- 不要在颜色值 rgb(), rgba(), hsl(), hsla(), 和 rect() 中增加空格
+- 不要在属性取值或者颜色参数前面添加不必要的 0 (比如，使用 .5 替代 0.5 和 -.5px 替代 0.5px)。
+- 所有的十六进制值都应该使用小写字母，例如 #fff。因为小写字母有更多样的外形，在浏览文档时，他们能够更轻松的被区分开来。
+- 尽可能使用短的十六进制数值，例如使用 #fff 替代 #ffffff。
+- 为选择器中得属性取值添加引号，例如 input[type="text"]。 [他们只在某些情况下可有可无](https://mathiasbynens.be/notes/unquoted-attribute-values#css)，所以都使用引号可以增加一致性。
+- 不要为 0 指明单位，比如使用 margin: 0; 而不是 margin: 0px;。
+- 对这里提到的规则有问题吗？参考 [Wikipedia 中的 CSS 语法部分](https://en.wikipedia.org/wiki/Cascading_Style_Sheets#Syntax)。
 ```css
-.cardBody {
+/* Bad CSS */
+.selector, .selector-secondary, .selector[type=text] {
+  padding:15px;
+  margin:0px 0px 15px;
+  background-color:rgba(0, 0, 0, 0.5);
+  box-shadow:0 1px 2px #CCC,inset 0 1px 0 #FFFFFF
+}
+
+/* Good CSS */
+.selector,
+.selector-secondary,
+.selector[type="text"] {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: rgba(0,0,0,.5);
+  box-shadow: 0px 1px 2px #ccc, inset 0 1px 0 #fff;
 }
 ```
 
-推荐 √
+## 声明顺序
+相关的属性声明应该以下面的顺序分组处理：
 
+1.Positioning
+2.Box model 盒模型
+3.Typographic 排版
+4.Visual 外观
+
+Positioning 处在第一位，因为他可以使一个元素脱离正常文本流，并且覆盖盒模型相关的样式。盒模型紧跟其后，因为他决定了一个组件的大小和位置。
+
+其他属性只在组件 内部 起作用或者不会对前面两种情况的结果产生影响，所以他们排在后面。
+
+关于完整的属性以及他们的顺序，请参考 [Recess](https://twitter.github.io/recess/)。
 ```css
-.card-body {
+.declaration-order {
+  /* Positioning */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+
+  /* Box-model */
+  display: block;
+  float: right;
+  width: 100px;
+  height: 100px;
+
+  /* Typography */
+  font: normal 13px "Helvetica Neue", sans-serif;
+  line-height: 1.5;
+  color: #333;
+  text-align: center;
+
+  /* Visual */
+  background-color: #f5f5f5;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+
+  /* Misc */
+  opacity: 1;
 }
 ```
 
-不推荐 ×
-
-```html
-<!-- html -->
-<div class="menu-item"></div>
-<!-- style -->
-.menu-item {
-  font-size:12px;
-  color:#333;
-}
-<!-- script -->
-$('.menu-item').on()
-```
-
-推荐 √
-
-```html
-<!-- html -->
-<div class="menu-item J-menu-itm"></div>
-<!-- style -->
-.menu-item {
-  font-size:12px;
-  color:#333;
-}
-<!-- script -->
-$('.J-menu-itm').on()
-```
-
-### 尽量使用英文命名原则
-
-不推荐 ×
-
+## 媒体查询位置
+尽量将媒体查询的位置靠近他们相关的规则。不要将他们一起放到一个独立的样式文件中，或者丢在文档的最底部。这样做只会让大家以后更容易忘记他们。这里是一个典型的案例。
 ```css
-.xiaoxi {
+.element { ... }
+.element-avatar { ... }
+.element-selected { ... }
+
+@media (min-width: 480px) {
+  .element { ...}
+  .element-avatar { ... }
+  .element-selected { ... }
 }
 ```
 
-推荐 √
+## 不要使用 @import
+与 <link> 相比, @import 更慢，需要额外的页面请求，并且可能引发其他的意想不到的问题。应该避免使用他们，而选择其他的方案：
 
+使用多个 <link> 元素
+使用 CSS 预处理器例如 Sass 或 Less 将样式编译到一个文件中
+使用 Rails, Jekyll 或其他环境提供的功能，来合并 CSS 文件。
+了解更多信息, 参照 Steve Souders 的[这篇文章](http://www.stevesouders.com/blog/2009/04/09/dont-use-import/)。
+
+## 前缀属性
+当使用厂商前缀属性时，通过缩进使取值垂直对齐以便多行编辑。
 ```css
-.message {
+/* Prefixed properties */
+.selector {
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+          box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
 ```
 
-### 见名知意
+## 单条声明的声明块
+在一个声明块中只包含一条声明的情况下，为了易读性和快速编辑可以考虑移除其中的换行。所有包含多条声明的声明块应该分为多行。
 
-尽量不缩写，除非一看就明白的单词
-
-不推荐 ×
-
+这样做的关键因素是错误检测 - 例如，一个 CSS 验证程序显示你在 183 行有一个语法错误,如果是一个单条声明的行，那就是他了。在多个声明的情况下，你必须为哪里出错了费下脑子。
 ```css
-.dis {
+/* Single declarations on one line */
+.span1 { width: 60px; }
+.span2 { width: 140px; }
+.span3 { width: 220px; }
+
+/* Multiple declarations, one per line */
+.sprite {
+  display: inline-block;
+  width: 16px;
+  height: 15px;
+  background-image: url(../img/sprite.png);
+}
+.icon           { background-position: 0 0; }
+.icon-home      { background-position: 0 -20px; }
+.icon-account   { background-position: 0 -40px; }
+```
+## 属性简写
+坚持限制属性取值简写的使用，属性简写需要你必须显式设置所有取值。常见的属性简写滥用包括:
+
+- padding
+- margin
+- font
+- background
+- border
+- border-radius
+大多数情况下，我们并不需要设置属性简写中包含的所有值。例如，HTML 头部只设置上下的 margin，所以如果需要，只设置这两个值。过度使用属性简写往往会导致更混乱的代码，其中包含不必要的重写和意想不到的副作用。
+
+Mozilla Developer Network 有一篇对不熟悉属性简写及其行为的人来说很棒的关于 [shorthand properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties) 的文章。
+```css
+/* Bad example */
+.element {
+  margin: 0 0 10px;
+  background: red;
+  background: url("image.jpg");
+  border-radius: 3px 3px 0 0;
+}
+
+/* Good example */
+.element {
+  margin-bottom: 10px;
+  background-color: red;
+  background-image: url("image.jpg");
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+```
+## LESS 和 SASS 中的嵌套
+避免不必要的嵌套。可以进行嵌套，不意味着你应该这样做。只有在需要给父元素增加样式并且同时存在多个子元素时才需要考虑嵌套。
+```css
+// Without nesting
+.table > thead > tr > th { … }
+.table > thead > tr > td { … }
+
+// With nesting
+.table > thead > tr {
+  > th { … }
+  > td { … }
+}
+```
+## LESS 和 SASS 中的运算符
+为了提高代码可读性，在数学运算外增加括号，并且在取值，变量和运算符之间增加空格。
+```css
+// Bad example
+.element {
+  margin: 10px 0 @variable*2 10px;
+}
+
+// Good example
+.element {
+  margin: 10px 0 (@variable * 2) 10px;
 }
 ```
 
-推荐 √
+## 代码注释
 
+代码是由人来编写和维护的。保证你的代码是描述性的，包含好的注释，并且容易被他人理解。好的代码注释传达上下文和目标。不要简单地重申组件或者 class 名称。
 ```css
-.disabled {
+/* Bad example */
+/* Modal header */
+.modal-header {
+  ...
 }
-.user-info {
+
+/* Good example */
+/* Wrapping element for .modal-title and .modal-close */
+.modal-header {
+  ...
 }
-.user-desc {
-}
+```
+
+## Class 命名
+- 保持 Class 命名为全小写，可以使用短划线（不要使用下划线和 camelCase 命名）。短划线应该作为相关类的自然间断。(例如，.btn 和 .btn-danger)。
+- 避免过度使用简写。.btn 可以很好地描述 button，但是 .s 不能代表任何元素。
+- Class 的命名应该尽量短，也要尽量明确。
+- 使用有意义的名称；使用结构化或者作用目标相关，而不是抽象的名称,尽量使用英文命名。
+- 命名时使用最近的父节点或者父 class 作为前缀。
+- 使用 .js-* classes 来表示行为(相对于样式)，但是不要在 CSS 中定义这些 classes。
+这些规则在创建 Sass 和 Less 变量名时同样有用。
+```css
+/* Bad example */
+.t { ... }
+.red { ... }
+.header { ... }
+
+/* Good example */
+.tweet { ... }
+.important { ... }
+.tweet-header { ... }
+
+```
+## 选择器
+
+- 使用 classes 而不是通用元素标签来优化渲染性能。
+- 避免在经常出现的组件中使用一些属性选择器 (例如，[class^="..."])。浏览器性能会受到这些情况的影响。
+- 减少选择器的长度，每个组合选择器选择器的条目应该尽量控制在 3 个以内。
+- 只在必要的情况下使用后代选择器 (例如，没有使用带前缀 classes 的情况).
+```
+/* Bad example */
+span { ... }
+.page-container #stream .stream-item .tweet .tweet-header .username { ... }
+.avatar { ... }
+
+/* Good example */
+.avatar { ... }
+.tweet-header .username { ... }
+.tweet .avatar { ... }
+```
+## 代码组织
+- 以组件为单位组织代码。
+- 制定一个一致的注释层级结构。
+- 使用一致的空白来分割代码块，这样做在查看大的文档时更有优势。
+- 当使用多个 CSS 文件时，通过组件而不是页面来区分他们。页面会被重新排列组合，而组件是可以移动的。
+```css
+/*
+ * Component section heading
+ */
+
+.element { ... }
+
+
+/*
+ * Component section heading
+ *
+ * Sometimes you need to include optional context for the entire component. Do that up here if it's important enough.
+ */
+
+.element { ... }
+
+/* Contextual sub-component or modifer */
+.element-heading { ... }
 ```
 
 ### 部分公用样式名示例
@@ -170,235 +352,6 @@ BEM 规范的要点就是 模块名 + 元素名 + 修饰器名。
 
 [去了解 less](http://www.bootcss.com/p/lesscss/)
 
-* 开发阶段尽量使用动态语言，方便快速开发和维护及团队协作，团队统一使用 less
-
-不推荐 ×
-
-```css
-.card {
-}
-.card .card-header {
-}
-.card .card-body {
-}
-```
-
-推荐 √
-
-```less
-.card {
-  &-header {
-  }
-  &-body {
-  }
-}
-```
-
-## 分离解耦
-
-### 独立组件样式
-
-* 组件的样式以 less 单文件维护（已组件名命名样式文件）
-
-不推荐 ×
-
-```css
-/* main.css */
-.card {
-}
-.card .card-header {
-}
-.card .card-body {
-}
-.nav {
-}
-.nav .nav-item {
-}
-```
-
-推荐 √
-
-```less
-// card.less
-.card {
-  &-header {
-  }
-  &-body {
-  }
-}
-// nav.less
-.nav {
-  &-item {
-  }
-  //...
-}
-// mian.less
-@import './card.less';
-@import './nav.less';
-```
-
-## 选择器
-
-### 合理的使用 ID
-
-一般情况下 ID 不应该被用于样式，并且 ID 的权重很高，所以不使用 ID 解决样式的问题，而是使用 class
-
-不推荐 ×
-
-```css
-#content .title {
-  font-size: 2em;
-}
-```
-
-推荐 √
-
-```css
-.content .title {
-  font-size: 2em;
-}
-```
-
-### css 选择器中避免使用标签名
-
-从结构、表现、行为分离的原则来看，应该尽量避免 css 中出现 HTML 标签，并且在 css 选择器中出现标签名会存在潜在的问题。并且查找一个类比查找一个标签更快
-
-不推荐 ×
-
-```css
-#content span {
-  font-size: 2em;
-}
-```
-
-推荐 √
-
-```css
-.content .title {
-  font-size: 2em;
-}
-```
-
-### 使用子选择器
-
-不推荐 ×
-
-```css
-.content .title {
-  font-size: 2rem;
-}
-```
-
-推荐 √
-
-```css
-.content > .title {
-  font-size: 2rem;
-}
-```
-
-## 可读性
-
-### 尽量使用缩写属性
-
-不推荐 ×
-
-```css
-border-top-style: none;
-font-family: palatino, georgia, serif;
-font-size: 100%;
-line-height: 1.6;
-padding-bottom: 2em;
-padding-left: 1em;
-padding-right: 1em;
-padding-top: 0;
-```
-
-推荐 √
-
-```css
-border-top: 0;
-font: 100%/1.6 palatino, georgia, serif;
-padding: 0 1em 2em;
-```
-
-### 0 后面不带单位
-
-不推荐 ×
-
-```css
-padding-bottom: 0px;
-margin: 0em;
-```
-
-推荐 √
-
-```css
-padding-bottom: 0;
-margin: 0;
-```
-
-### 属性格式
-
-为了保证一致性和可扩展性，每个声明应该用分号结束，每个声明换行。属性名的冒号后使用一个空格。出于一致性的原因，属性和值（但属性和冒号之间没有空格）的之间始终使用一个空格。每个选择器和属性声明总是使用新的一行。属性选择器或属性值用双引号`""`，而不是单引号`''`括起来。
-URI 值（url()）不要使用引号。
-
-作为最佳实践，我们应该遵循以下顺序（应该按照下表的顺序）：结构性属性：
-
-display
-position, left, top, right etc.
-overflow, float, clear etc.
-margin, padding
-
-表现性属性：
-
-background, border etc.
-font, text
-
-不推荐 ×
-
-```css
-.box {
-  font-family: 'Arial', sans-serif;
-  border: 3px solid #ddd;
-  left: 30%;
-  position: absolute;
-  text-transform: uppercase;
-  background-color: #eee;
-  right: 30%;
-  isplay: block;
-  font-size: 1.5rem;
-  overflow: hidden;
-  padding: 1em;
-  margin: 1em;
-}
-```
-
-推荐 √
-
-```css
-.box {
-  display: block;
-  position: absolute;
-  left: 30%;
-  right: 30%;
-  overflow: hidden;
-  margin: 1em;
-  padding: 1em;
-  background-color: #eee;
-  border: 3px solid #ddd;
-  font-family: 'Arial', sans-serif;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-}
-.xx{
-  1.位置属性(position, top, right, z-index, display, float等)
-　2.大小(width, height, padding, margin)
-　3.文字系列(font, line-height, letter-spacing, color- text-align等)
-　4.背景(background, border等)
-　5.其他(animation, transition等)
-}
-```
 
 ## BEM 规范
 
@@ -438,210 +391,3 @@ BEM 的命名规矩很容易记：block-name\_\_element-name--modifier-name，�
    <button type="button" class="page-btn__next">下一页</button>
 </div>
 ```
-
-上面我们用双下划线来明确区分模块名和元素名，当然也可以用单下划线，比如 page-btn_prev 和 page-btn_next。我们只需保留 BEM 的思想，其命名规范可以任意变通。
-
-一开始了解 BEM 的时候，可能会产生误解，出现以下不正确的命名方式：
-
-```html
-<div class="page-btn">
-    <!-- ... -->
-   <ul class="page-btn__list">
-       <li class="page-btn__list__item">
-           <a href="#" class="page-btn__list__item__link">第一页</a>
-       </li>
-   </ul>
-   <!-- ... -->
-</div>
-```
-
-分页组件有个 ul 列表名为：`page-btn__list`，列表里面存放每一页的按钮，名为：`page-btn__list__item__link`，这是不对的。
-
-首先，有悖 BEM 命名规范，BEM 的命名中只包含三个部分，元素名只占其中一部分，所以不能出现多个元素名的情况，所以上述每一页的按钮名可以改成：`page-btn__btn`。
-
-其次，有悖 BEM 思想，BEM 是不考虑结构的，比如上面的分页按钮，即使它是在 ul 列表里面，它的命名也不应该考虑其父级元素。当我们遵循了这个规定，无论父元素名发生改变，或是模块构造发生的改变，还是元素之间层级关系互相变动，这些都不会影响元素的名字。
-
-所以即使需求变动了，分页组件该有按钮还是要有按钮的，DOM 构造发生变动，至多也就不同元素的增删减，模块内名称也随之增删减，而不会出现修改名字的情况，也就不会因为名字变动，牵涉到 JS 文件的修改，或样式文件的修改。
-
-### BEM 命名好长
-
-BEM 的命名中包含了模块名，长长的命名会让 HTML 标签会显得臃肿。
-
-其实每个使用 BEM 的开发团队多多少少会改变其命名规范，比如 Instagram 团队使用的驼峰式:
-
-```css
-.blockName-elementName--modifierName {
-  /* ... */
-}
-```
-
-还有单下划线：
-
-```css
-.block-name_element-name--modifierName {
-  /* ... */
-}
-```
-
-还有修饰器名用单横线连接：
-
-```css
-.blockName__elementName-modifierName {
-  /* ... */
-}
-```
-
-其实这些对缩短命名没有多大的帮助，但我们也无需担心文件体积的问题，由于服务端有 gzip 压缩，BEM 命名相同的部分多，压缩下来的体积不会太大。另外现在都用 IDE 来编写代码了，有自动提示功能，而且我们还有 less 处理器，也无须担心重复的输入过长的名字。
-
-因为命名长，我们是不是可以用子代选择器来代替 BEM 命名？这样至少在 HTML 编写时，让 HTML 标签看起来美观一点。
-
-下面说说子代选择器带来的问题。
-
-### 子选择器
-
-子代选择器的方式是，通过组件的根节点的名称来选取子代元素。按照这个思路，分页按钮样式可以这么写：
-
-```html
-<div class="page-btn">
-   <!-- ... -->
-   <ul class="list"></ul>
-   <!-- ... -->
-</div>
-.page-btn { /* ... */ }
-
-.page-btn .list { /* ... */ }
-```
-
-HTML 看起来美观多了，但这解决了样式冲突问题么？试想下，如果让你来接手这个项目，要增加一个需求，新增一个组件，你命名放心么？
-
-你面临的问题是：你打开组件目录，里面有个分页组件，叫做 page-btn，可是你完全不知道要怎么给新组件命名，因为即使新组件模块名与 page-btn 不一样，也不能保证新组件与分页组件不冲突。
-
-比如新的需求是“新增一个列表组件”，如果该组件的名字叫做 list，其根节点的名字叫 list，那么这个组件下面写的样式，就很可能和.page-btn .list 的样式冲突:
-
-```css
-.list {
-  /* ... */
-}
-```
-
-这还仅仅只有两个组件而已，实际项目中，十几个或几十个组件，难道我们要每个组件都检查一下来“新组件名是否和以往组件的子元素命名冲突了”么？这不现实。
-
-BEM 禁止使用子代选择器，以上是原因之一。子代选择器不好的地方还在于，如果层次关系过长，逻辑不清晰，非常不利于维护。为了懒得命名或者追求所谓的“精简代码”，写出下面这种选择器：
-
-```css
-.page-btn button:first-child {
-}
-
-.page-btn ul li a {
-}
-
-/* ... */
-
-/* 维护代码，新增需求 */
-.page-btn .prev {
-}
-```
-
-用层次关系结构关系来定位元素，可能会因为需求改变而大面积的重写样式文件。试想一下维护这类代码有多么痛苦，我们要一边检查该元素的上下文 DOM 结构，一边对照着 css 文件，一一对比，找到该元素对应的样式，也就是说我为了改一个元素的代码，需要不断翻阅 HTML 文件和 CSS 文件，可维护性非常之差。更有甚者，来维护这块代码的同事，直接在样式文件最后添加覆盖样式，这会造成一个非常严重的问题了：同一个元素样式零散的分布在文件的不同地方，而且定位该元素的选择器也可能各不相同。
-
-这样的样式文件只会越写越糟糕，可以说，当我们用子代选择器来定位元素时，这个样式文件就已经注定是要被翻来覆去的重构的了，甚至，每个来维护这个文件的人都会将其重构一遍。
-
-子代选择器还会造成权重过大的问题，当我们要做响应式的时候，某个带样式的元素需要适配不同的屏幕，此时，我们还要不断的确认该元素之前的选择器写法！为了覆盖前面权重过大的样式，甚至通过添加额外的类名或标签名来增加权重。可想而知，此后这个样式文件的维护难度就像雪球一样，越滚越大。
-
-如果我们用的是 BEM，要覆盖样式很简单：找到要覆盖样式的元素，得知它的类名，在媒体查询中，用它的类名作为选择器，写下覆盖样式，样式就覆盖成功了，不需要担心前面样式的权重过大。
-
-### BEM 修饰器
-
-根据不同的场景，组件可能会表现出不同的样式。比如分页组件在 pc 端具有具体的页码以及上下页按钮，但在移动端，因空间有限，可能只保留上下页按钮。我们可以用修饰器来区分这两种情况。默认情况下，分页按钮的类名为 page-btn，但在移动端，我们需要加多个类名 page-btn--min
-
-```css
-/* 缩小版分页组件中，具体页码按钮隐去 */
-.page-btn--min .page-btn__btn {
-  display: none;
-}
-
-.page-btn--min .page-btn__prev {
-  width: 50%;
-}
-
-.page-btn--min .page-btn__prev {
-  width: 50%;
-}
-```
-
-上面这种情况用了子代选择器，BEM 是不允许这么写的，BEM 中修饰器的样式不依赖于任何结构关系，也就是说，元素的状态改变只会影响自身，不对其他元素进行影响，但实际上，这很难做到的。以上的写法不会造成样式冲突的，而且权重的影响也不大。
-
-BEM 修饰器代表着元素的状态，但有时候元素的状态需要 js 来控制，此时遵循规范没有任何好处，比如激活状态，BEM 推荐的写法是：
-
-```css
-.block__element {
-  display: none;
-}
-
-.block__element--active {
-  display: block;
-}
-```
-
-当用 js 为该元素添加状态时，我们需要知道该元素的名字 block**element，这样我们才能推导出它的激活状态为 block**element--active，这是不合理的，因为很多时候我们无法得知元素的名称，所以这时候，我们应该统一 js 控制状态的类名格式，比如 is-active、js-active 等等，这些类名只用作标识，不予许有默认的公共样式：
-
-```css
-.block__element {
-  display: none;
-}
-
-.block__element.is-active {
-  display: block;
-}
-```
-
-### 原子类和 BEM
-
-BEM 可以不需要用到原子类，但是如果已经引入了类似 Bootstrap 的框架，也没必要强制避免使用原子类，比如“pull-right”、"ellipsis"、“clearfix”等等类，这些类非常实用，和 BEM 是可以互补的。
-
-在组件开发中其实不推荐使用原子类，因为这会降低组件的可复用性。可复用性的最理想状态就是组件不仅仅在不同的页面中表现一致，在跨项目的情况下，也能够运行良好。如果组件的样式因为依赖于某几个原子类就要依赖整个 Bootstrap 库，那么组件 d 迁移负担就重很多了。
-
-原子类更适合应用在实际页面中，这是因为页面变动大而且不可复用，假设在 header 中，我们用到了两个组件 logo 和 user-panel（用户操作面板），两个组件分别置于 header 的左侧和右侧，我们可以这么写：
-
-```html
-<div class="header clearfix">
-    <div class="logo pull-left"><!-- ... --></div>
-    <div class="user-panel pull-left"><!-- ... --></div>
-</div>
-```
-
-header 可以封装成一个模块，但它复用程度不高，不能算是组件，所以即使使用原子类也没有关系。在项目中，使用原子类之前应该考虑一下，这个场景是否变动大而且不可复用，如果是的话，我们可以放心的使用原子类。
-
-组件应该是“自洽的”，其本身就应该构成了一个“生态圈”，也就是说，他几乎不需要外部供给，自给自足就能够运转下去。
-
-实际页面中也应该使用 BEM
-在实际页面中也需要用到 BEM 命名方法，不然乱起的一个名字很可能就和某一组件冲突了，导致样式相互覆盖。
-
-假如我们有联系页面，路径是/pages/contact/。那么该页面的模块名可以是 page-contact，其名下元素均以 page-contact\_\_element-name 命名。
-
-一般来说，实际页面中只是对组件进行调用，对组件的位置进行调整，但不会对组件内部细节进行修改。但实际情况下，同一个组件在不同页面不同模样的情况也是有的，所以会出现在实际页面中对组件样式进行微调的代码：
-
-```css
-/* 联系页面对分页按钮进行微调 */
-.page-contact .page-btn {
-}
-```
-
-但更推荐的做法是给分页组件添加一个修饰器，将上面的样式放到修饰器名下，再根据实际情况运用到页面中。
-
-::: tip
-在此我们采用的是 c_card--body `c`是 chebian 的首字母类似一个库的命名空间`card`为一个组件的名字`body`为修饰
-:::
-
-```less
-.c_card {
-  &--header {
-  }
-  &--body {
-  }
-  &--footer {
-  }
-}
-```
-
-这样看起来是不是一目了然呢

@@ -48,12 +48,17 @@ module.exports = {
       '/chebian/': [{
         title: '',
         collapsable: false,
-        children: ['cb','mixins','vuexs']
+        children: ['directory','cb','mixins','vuexs']
       }],
       '/ui/': [{
         title: '',
         collapsable: false,
         children: ['', 'button']
+      }],
+      '/share/': [{
+        title: '',
+        collapsable: false,
+        children: ['', 'git']
       }]
     }
   }
