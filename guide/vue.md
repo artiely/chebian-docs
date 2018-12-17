@@ -704,14 +704,15 @@ new Vue({
 ```js
 name:'',
 components:{},
+mixins:[],
 props:{},
 data(){},
 watch:{},
 computed:{},
 methods:{},
 created(){},
-mounted(){},
-activated(){}
+activated(){},
+mounted(){}
 ```
 
 ## 推荐常用 vs code 插件
@@ -729,7 +730,7 @@ sublime text keymap sublime 快捷键
 todo highlight 待办高亮  
 :::
 
-## vscode 配置
+## vscode 配置 (已不是最新版)
 
 ```json
 {
