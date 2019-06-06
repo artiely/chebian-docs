@@ -1,8 +1,7 @@
 module.exports = {
-  title: '为了爱与和平',
+  title: '车边前端开发文档',
   description: '人生除了眼前的苟且，还有未知的bug和看不懂的code',
   port: '8085',
-
   themeConfig: {
     // nav: [
     //   { text: 'Home', link: '/' },
@@ -30,14 +29,14 @@ module.exports = {
         text: '文档',
         link: '/chebian/'
       },
-      {
-        text: '组件',
-        link: '/ui/'
-      },
-      {
-        text: '技术分享',
-        link: '/share/'
-      }
+      // {
+      //   text: '组件',
+      //   link: '/ui/'
+      // },
+      // {
+      //   text: '技术分享',
+      //   link: '/share/'
+      // }
     ],
     sidebar: {
       '/guide/': [{
@@ -48,18 +47,18 @@ module.exports = {
       '/chebian/': [{
         title: '',
         collapsable: false,
-        children: ['directory','cb','mixins','vuexs']
+        children: ['','2.model']
       }],
-      '/ui/': [{
-        title: '',
-        collapsable: false,
-        children: ['', 'button']
-      }],
-      '/share/': [{
-        title: '',
-        collapsable: false,
-        children: ['', 'git']
-      }]
+      // '/ui/': [{
+      //   title: '',
+      //   collapsable: false,
+      //   children: ['', 'button']
+      // }],
+      // '/share/': [{
+      //   title: '',
+      //   collapsable: false,
+      //   children: ['', 'git']
+      // }]
     }
   }
 }

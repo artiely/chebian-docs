@@ -1,54 +1,101 @@
-# Cell 单元格
+# 项目结构
+## 注释强调
 
-单个连续模块垂直排列，显示当前的内容、状态和可进行的操作。包含了 cell,list listItem,field,datepicker 等功能
+> 变量及方法都应该写注释 复杂的业务逻辑 也在模块下的 readme.md 文件
 
-### 规则
+## 模块声明
 
-- 数据录入
-- 一般由主要信息、主要操作、次要信息、次要操作组成。
-- 主要信息和主要操作放在列表的左边，次要信息和次要操作放在列表的右边。
+> 主模块按下列方式已文件或文件夹的方式陈列
 
-## CellGroup
+### auth
 
-### props
+> 鉴权 (登录 注册 忘记密码 体验 ...)
 
-| 属性   | 说明           | 类型    | 默认值 |
-| ------ | -------------- | ------- | ------ |
-| border | 是否显示外边框 | Boolean | true   |
+### financing
 
-## Cell
+> 财务 (记一笔 Record-sum 交班 收支账本)
 
-### props
+### live
 
-| 属性     | 说明                                                                                               | 类型                               | 默认值 |
-| -------- | -------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ |
-| title    | 左边内容                                                                                           | String/Slot Default `name="title"` | -      |
-| text     | 右边内容                                                                                           | String                             | -      |
-| link     | 箭头方向(右,上,下), 可选`horizontal`,`up`,`down`,`empty`，如果是 empty 则存在对应的 dom,但是不显示 | String                             | false  |
-| wrap     | 是否换行，默认情况下，文字超长会被隐藏                                                             | Boolean                            | false  |
-| required | 是否必填（一般用于有 input 属性时 只是展示符号`*`）                                                | Boolean                            | false  |
-| datetime | 弹出日期+时间选择器 (结合 v-model 获取值)                                                          | Boolean                            | false  |
-| date     | 弹出日期选择器 (结合 v-model 获取值)                                                               | Boolean                            | false  |
+> 现场 (开单 快单 充值 办卡 ...)
 
-### input 属性才有效的 继承所有 input 原生属性
+### marketing
 
-| 属性        | 说明                                       | 类型          | 默认值 |
-| ----------- | ------------------------------------------ | ------------- | ------ |
-| v-model     | 输入的值                                   | String/Number | -      |
-| currency    | 是否只能输入金额 `88.88`格式 `type=number` | Number        | -      |
-| clear       | 是否清空输入                               | Boolean       | false  |
-| placeholder | 输入提示                                   | Boolean       | 请输入 |
-| maxlength   | 输入位数限制                               | String,Number | -      |
+> 营销 (小程序 优惠券 自动推送 宣传海报)
 
-## Cell
+### setting
 
-辅助说明，提供一个 slot
+> 设置 (服务/商品 开单模板 预警设置 声音 免密 账户 店铺设置 角色 员工 ...)
 
-# remark 备注
+### statement
 
-### props
+> 报表 (报表 储值列表 办卡列表)
 
-| 属性        | 说明           | 类型    | 默认值 |
-| ----------- | -------------- | ------- | ------ |
-| upload      | 是否可上传图片 | Boolean | false  |
-| placeholder | 备注提示       | String  | -      |
+### store
+
+> 商家 (充值 ...)
+
+## 启动与构建
+
+```bash
+# 确保克隆主干最新代码
+git clone ...
+
+# 更新依赖
+npm i
+
+# 本地启动
+npm run dev
+
+# 本地开发测试 便于与原生联调
+npm run dev-test
+
+# 本地测试环境打包
+npm run build-staging
+
+# 线上测试环境打包
+npm run build
+
+# 发布上线打包
+npm run build-release
+
+```
+## 项目结构
+
+```js
+├─dist  // 打包后的项目文件
+│  └─static
+│      ├─css
+│      ├─fonts
+│      ├─img
+│      ├─js
+│      ├─logoicon
+│      └─setup
+├─node_modules
+├─public        //  静态资源
+│  └─static
+│      ├─js
+│      ├─logoicon
+│      └─setup
+└─src       // 项目源码
+    ├─api     // 请求管理
+    │  └─modules
+    ├─assets  // 资源
+    │  ├─font
+    │  ├─img
+    │  ├─js
+    │  └─style
+    ├─common // 公共
+    │  ├─directive // 指令
+    │  ├─filter// 过滤器
+    │  ├─mixins // 混合
+    │  └─utils // 工具方法
+    ├─components // 页面级组件
+    ├─package // 无业务基础组件
+    ├─router // 路由
+    ├─skeleton // 骨架屏
+    ├─store // 数据管理
+    │  └─modules
+    └─views // 视图
+```
+
