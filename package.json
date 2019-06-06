@@ -3,7 +3,7 @@
   "version": "0.12.0",
   "scripts": {
     "dev": "vuepress dev",
-    "build": "vuepress build"
+    "build": "vuepress build && node server.js"
   },
   "devDependencies": {},
   "dependencies": {

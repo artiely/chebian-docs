@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>车边前端开发文档 | vue 列表的按需刷新</title>
+    <meta name="description" content="人生除了眼前的苟且，还有未知的bug和看不懂的code">
+    
+    
+    <link rel="preload" href="/assets/css/19.styles.98f7ba2d.css" as="style"><link rel="preload" href="/assets/js/app.63134d11.js" as="script"><link rel="preload" href="/assets/js/4.0fabf0e9.js" as="script"><link rel="prefetch" href="/assets/js/8.4252ccf6.js"><link rel="prefetch" href="/assets/js/0.c3a6a1b1.js"><link rel="prefetch" href="/assets/js/1.fac310ba.js"><link rel="prefetch" href="/assets/js/2.82e06c8f.js"><link rel="prefetch" href="/assets/js/3.74ce06e0.js"><link rel="prefetch" href="/assets/js/5.ff3cf074.js"><link rel="prefetch" href="/assets/js/6.7896ad35.js"><link rel="prefetch" href="/assets/js/7.25182cb4.js"><link rel="prefetch" href="/assets/js/9.adbab8e6.js"><link rel="prefetch" href="/assets/js/10.9b18156b.js"><link rel="prefetch" href="/assets/js/11.3e50f4bd.js"><link rel="prefetch" href="/assets/js/12.002248b6.js"><link rel="prefetch" href="/assets/js/13.049a7165.js"><link rel="prefetch" href="/assets/js/14.4190d557.js"><link rel="prefetch" href="/assets/js/15.7b4d75bf.js"><link rel="prefetch" href="/assets/js/16.b3fc682d.js"><link rel="prefetch" href="/assets/js/17.261b4ac6.js"><link rel="prefetch" href="/assets/js/18.d699c8f2.js">
+    <link rel="stylesheet" href="/assets/css/19.styles.98f7ba2d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      车边前端开发文档
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><nav class="nav-links can-hide"><div class="nav-item"><a href="/guide/" class="nav-link">规范</a></div><div class="nav-item"><a href="/chebian/" class="nav-link">文档</a></div><a href="https://github.com/artiely/chebian-docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    查看源码
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/guide/" class="nav-link">规范</a></div><div class="nav-item"><a href="/chebian/" class="nav-link">文档</a></div><a href="https://github.com/artiely/chebian-docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    查看源码
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav><!----></div><div class="page"><div class="content"><h1 id="vue-列表的按需刷新"><a href="#vue-列表的按需刷新" aria-hidden="true" class="header-anchor">#</a> vue 列表的按需刷新</h1><p>所以我在项目中第一次使用了他，
+我们的业务场景是这样的，一个订单列表，可以无限下拉，假如：我下拉了 3 页，点击一个订单可以进入详情，在详情里可以改变订单的状态，但是从详情返回的时候列表应该刷新到第一页才能看到状态的改变【前提是后端排序是按更新时间】，但也不能每次从详情返回都刷新列表，因为我可能只是查看了详情，并没有改变订单的状态，这个时候返回订单列表应该在我进入详情时的位置（也就是第三页）并且没有刷新。</p><p>简述为： 列表进详情有操作返回刷新，无操作返回不刷新。</p><p>我们通过路由钩子监听当前从哪个页面来;伪代码如下：</p><pre class="language-js"><code><span class="token function">beforeRouteEnter</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> next<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">next</span><span class="token punctuation">(</span>vm <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>
+        <span class="token keyword">from</span><span class="token punctuation">.</span>path <span class="token operator">===</span> <span class="token string">'/index'</span> <span class="token operator">||</span>
+<span class="highlighted-line">        <span class="token keyword">from</span><span class="token punctuation">.</span>path <span class="token operator">===</span> <span class="token string">'/detail'</span> <span class="token operator">||</span></span>        <span class="token keyword">from</span><span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token keyword">null</span>
+      <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        vm<span class="token punctuation">.</span>query<span class="token punctuation">.</span>pageNo <span class="token operator">=</span> <span class="token number">1</span>
+        vm<span class="token punctuation">.</span><span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+</code></pre><p>以上代码只能是要么回来刷新要么不刷新，我们只需要知道用户进入详情是否做了对应的操作，就可以判断回来是否需要刷新</p><h2 id="vue-observable-的应用"><a href="#vue-observable-的应用" aria-hidden="true" class="header-anchor">#</a> Vue.observable 的应用</h2><h2 id="参数"><a href="#参数" aria-hidden="true" class="header-anchor">#</a> 参数</h2><p><code>{Object} object</code></p><h2 id="用法"><a href="#用法" aria-hidden="true" class="header-anchor">#</a> 用法</h2><p>让一个对象可响应。Vue 内部会用它来处理 data 函数返回的对象。
+返回的对象可以直接用于渲染函数和计算属性内，并且会在发生改变时触发相应的更新。也可以作为最小化的跨组件状态存储器，用于简单的场景：</p><pre class="language-js"><code><span class="token keyword">const</span> state <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">observable</span><span class="token punctuation">(</span><span class="token punctuation">{</span> count<span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> Demo <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span>h<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">h</span><span class="token punctuation">(</span>
+      <span class="token string">'button'</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        on<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          click<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token template-string"><span class="token string">`count is: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>state<span class="token punctuation">.</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><p>个人认为这个一个在未来有能力取代 vuex 的 api
+他不存在命名空间，可以作为独立的模块，并且是响应式的</p><p>新建一个<code>refresh.js</code>管理所有的页面返回是否刷新的状态</p><pre class="language-js"><code><span class="token comment">/**
+ * 放所有的返回操作需要刷新的
+ * 参数为路由path的驼峰+refresh
+ */</span>
+<span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">const</span> refresh <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">observable</span><span class="token punctuation">(</span><span class="token punctuation">{</span> cardAddRefresh<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> refresh
+</code></pre><p>在详情页</p><pre class="language-js"><code><span class="token keyword">import</span> refresh <span class="token keyword">from</span> <span class="token string">'@/refresh'</span>
+<span class="token comment">// 有操作的回调里修改刷新状态</span>
+refresh<span class="token punctuation">.</span>cardAddRefresh <span class="token operator">=</span> <span class="token boolean">true</span>
+</code></pre><p>在列表里</p><pre class="language-js"><code><span class="token keyword">import</span> refresh <span class="token keyword">from</span> <span class="token string">'@/refresh'</span>
+<span class="token function">beforeRouteEnter</span><span class="token punctuation">(</span>to<span class="token punctuation">,</span> <span class="token keyword">from</span><span class="token punctuation">,</span> next<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">next</span><span class="token punctuation">(</span>vm <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>
+      <span class="token keyword">from</span><span class="token punctuation">.</span>path <span class="token operator">===</span> <span class="token string">'/index'</span> <span class="token operator">||</span>
+<span class="highlighted-line">      <span class="token punctuation">(</span><span class="token keyword">from</span><span class="token punctuation">.</span>path <span class="token operator">===</span> <span class="token string">'/card-add'</span> <span class="token operator">&amp;&amp;</span> refresh<span class="token punctuation">.</span>cardAddRefresh<span class="token punctuation">)</span> <span class="token operator">||</span></span>      <span class="token keyword">from</span><span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token keyword">null</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      vm<span class="token punctuation">.</span>query<span class="token punctuation">.</span>pageNo <span class="token operator">=</span> <span class="token number">1</span>
+      vm<span class="token punctuation">.</span><span class="token function">getData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+</code></pre><p>这样在进入列表时候就知道是否该刷新了</p></div><div class="content edit-link"><a href="https://github.com/artiely/chebian-docs/edit/master//share/1.vue.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div><!----></div></div></div>
+    <script src="/assets/js/4.0fabf0e9.js" defer></script><script src="/assets/js/app.63134d11.js" defer></script>
+  </body>
+</html>

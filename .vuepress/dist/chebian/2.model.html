@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>车边前端开发文档 | 环境模式与测试</title>
+    <meta name="description" content="人生除了眼前的苟且，还有未知的bug和看不懂的code">
+    
+    
+    <link rel="preload" href="/assets/css/19.styles.98f7ba2d.css" as="style"><link rel="preload" href="/assets/js/app.63134d11.js" as="script"><link rel="preload" href="/assets/js/17.261b4ac6.js" as="script"><link rel="prefetch" href="/assets/js/8.4252ccf6.js"><link rel="prefetch" href="/assets/js/0.c3a6a1b1.js"><link rel="prefetch" href="/assets/js/1.fac310ba.js"><link rel="prefetch" href="/assets/js/2.82e06c8f.js"><link rel="prefetch" href="/assets/js/3.74ce06e0.js"><link rel="prefetch" href="/assets/js/4.0fabf0e9.js"><link rel="prefetch" href="/assets/js/5.ff3cf074.js"><link rel="prefetch" href="/assets/js/6.7896ad35.js"><link rel="prefetch" href="/assets/js/7.25182cb4.js"><link rel="prefetch" href="/assets/js/9.adbab8e6.js"><link rel="prefetch" href="/assets/js/10.9b18156b.js"><link rel="prefetch" href="/assets/js/11.3e50f4bd.js"><link rel="prefetch" href="/assets/js/12.002248b6.js"><link rel="prefetch" href="/assets/js/13.049a7165.js"><link rel="prefetch" href="/assets/js/14.4190d557.js"><link rel="prefetch" href="/assets/js/15.7b4d75bf.js"><link rel="prefetch" href="/assets/js/16.b3fc682d.js"><link rel="prefetch" href="/assets/js/18.d699c8f2.js">
+    <link rel="stylesheet" href="/assets/css/19.styles.98f7ba2d.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      车边前端开发文档
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><nav class="nav-links can-hide"><div class="nav-item"><a href="/guide/" class="nav-link">规范</a></div><div class="nav-item"><a href="/chebian/" class="nav-link router-link-active">文档</a></div><a href="https://github.com/artiely/chebian-docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    查看源码
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header><div class="sidebar-mask"></div><div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/guide/" class="nav-link">规范</a></div><div class="nav-item"><a href="/chebian/" class="nav-link router-link-active">文档</a></div><a href="https://github.com/artiely/chebian-docs" target="_blank" rel="noopener noreferrer" class="repo-link">
+    查看源码
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav><ul class="sidebar-links"><li><div class="sidebar-group first"><p class="sidebar-heading open"><span></span><!----></p><ul class="sidebar-group-items"><li><a href="/chebian/" class="sidebar-link">项目结构</a></li><li><a href="/chebian/2.model.html" class="active sidebar-link">环境模式与测试</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/chebian/2.model.html#环境及对应启动命令" class="sidebar-link">环境及对应启动命令</a></li><li class="sidebar-sub-header"><a href="/chebian/2.model.html#代理" class="sidebar-link">代理</a></li><li class="sidebar-sub-header"><a href="/chebian/2.model.html#对外模式" class="sidebar-link">对外模式</a></li></ul></li></ul></div></li></ul></div><div class="page"><div class="content"><h1 id="环境模式与测试"><a href="#环境模式与测试" aria-hidden="true" class="header-anchor">#</a> 环境模式与测试</h1><p>app 的环境总共分为以下几种</p><h2 id="环境及对应启动命令"><a href="#环境及对应启动命令" aria-hidden="true" class="header-anchor">#</a> 环境及对应启动命令</h2><h3 id="开发环境"><a href="#开发环境" aria-hidden="true" class="header-anchor">#</a> 开发环境</h3><pre class="language-bash"><code><span class="token function">npm</span> run dev
+<span class="token comment"># 会启动一个本地服务</span>
+</code></pre><h3 id="本地开发测试"><a href="#本地开发测试" aria-hidden="true" class="header-anchor">#</a> 本地开发测试</h3><pre class="language-bash"><code><span class="token function">npm</span> run dev-test
+<span class="token comment"># 会打包资源到dist并起一个本地服务</span>
+</code></pre><h3 id="内网打包测试"><a href="#内网打包测试" aria-hidden="true" class="header-anchor">#</a> 内网打包测试</h3><pre class="language-bash"><code><span class="token comment"># 很少使用一般使用本地开发测试切换代理地址</span>
+<span class="token function">npm</span> run build-staging
+<span class="token comment"># 会打包资源到dist（交给原生）</span>
+</code></pre><h3 id="线上打包测试"><a href="#线上打包测试" aria-hidden="true" class="header-anchor">#</a> 线上打包测试</h3><pre class="language-bash"><code><span class="token function">npm</span> run build
+<span class="token comment"># 会打包资源到dist（交给原生）</span>
+</code></pre><h3 id="发布上线打包"><a href="#发布上线打包" aria-hidden="true" class="header-anchor">#</a> 发布上线打包</h3><pre class="language-bash"><code><span class="token function">npm</span> run build-release
+<span class="token comment"># 会打包资源到dist（交给原生）</span>
+</code></pre><h2 id="代理"><a href="#代理" aria-hidden="true" class="header-anchor">#</a> 代理</h2><p>在使用 开发环境 或 本地开发测试 时
+在vue.config.js里 proxy 里切换代理地址</p><pre class="language-js"><code><span class="token comment">// 代理</span>
+    proxy<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token string">'/store'</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// target: 'http://192.168.2.201:8091', // 金俊</span>
+        target<span class="token punctuation">:</span> <span class="token string">'http://192.168.2.138:8091'</span><span class="token punctuation">,</span> <span class="token comment">// 吴敏</span>
+        <span class="token comment">// target: 'http://192.168.2.242:8091', // 测试</span>
+        <span class="token comment">// target: 'http://dp.51chebian.com', // 线上</span>
+        <span class="token comment">// target: 'http://120.79.169.8:19381', // 线上测试</span>
+        changeOrigin<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre><h2 id="对外模式"><a href="#对外模式" aria-hidden="true" class="header-anchor">#</a> 对外模式</h2><p>对外分为开发模式，测试模式和生产模式</p><h3 id="开发模式"><a href="#开发模式" aria-hidden="true" class="header-anchor">#</a> 开发模式</h3><pre class="language-bash"><code><span class="token comment"># 此命令对应的开发模式</span>
+<span class="token comment"># 端口默认8080可能会变</span>
+<span class="token function">npm</span> run dev
+
+</code></pre><h3 id="测试默认"><a href="#测试默认" aria-hidden="true" class="header-anchor">#</a> 测试默认</h3><pre class="language-bash"><code><span class="token comment"># 对应的都是测试模式</span>
+<span class="token comment"># 端口3099</span>
+<span class="token function">npm</span> run dev-test
+<span class="token comment"># 无端口</span>
+<span class="token function">npm</span> run build-staging
+</code></pre><h3 id="生产模式"><a href="#生产模式" aria-hidden="true" class="header-anchor">#</a> 生产模式</h3><pre class="language-bash"><code><span class="token function">npm</span> run build
+<span class="token function">npm</span> run build-release
+</code></pre><h3 id="对外模式主要用于测试"><a href="#对外模式主要用于测试" aria-hidden="true" class="header-anchor">#</a> 对外模式主要用于测试</h3><p>便于复测和定位问题</p><p>如图</p><p><img src="/assets/img/m1.34cb0319.png" alt></p><p>能让测试人员清楚当前的版本及模式，如果没有此标签则说明是生产模式</p><h3 id="提交bug"><a href="#提交bug" aria-hidden="true" class="header-anchor">#</a> 提交bug</h3><p>1.在测试模式下测试
+2.提交内容包含如上截图
+3.原生问题提交给对应的开发</p><h3 id="关于h5版本号的作用"><a href="#关于h5版本号的作用" aria-hidden="true" class="header-anchor">#</a> 关于h5版本号的作用</h3><ol><li><p>前面3位版本号与平台版本号保持一致</p></li><li><p>后面的build号为每次合并代码执行<code>npm run dev-test</code>的时候会 <code>+1</code></p></li><li><p>禅道上的版本号以h5版本号为主，因为h5版本号不存在平台差异</p></li><li><p>开发在修复bug后以当前最新的h5版本号为基础<code>+1</code>，如当前h5版本号为<code>3.2.2.50</code>修复bug后点击解决的版本为<code>3.2.2.51</code></p></li><li><p>测试人员在回归bug的时候 如果发现最新的版本为<code>3.2.2.50</code>,解决的版本为<code>3.2.2.51</code>就说明代码还没发布，如果发现版本为<code>3.2.2.51</code>或更高则证明已经修复过。</p></li></ol></div><div class="content edit-link"><a href="https://github.com/artiely/chebian-docs/edit/master//chebian/2.model.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/chebian/" class="prev router-link-active">
+          项目结构
+        </a></span><!----></p></div></div></div></div>
+    <script src="/assets/js/17.261b4ac6.js" defer></script><script src="/assets/js/app.63134d11.js" defer></script>
+  </body>
+</html>
